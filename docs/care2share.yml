@@ -1,0 +1,897 @@
+openapi: 3.1.0
+info:
+  title: Care2Share - INFO6150 Web Design and User Experience Engineering Final Project
+  summary: Care2Share is a web application dedicated to combating food scarcity and hunger on a global scale by serving as a dynamic hub where individuals, organizations, and NGOs come together to share and collect surplus food, organize events, donate resources, and raise awareness about pressing issues surrounding hunger relief.
+  version: '1.0'
+servers:
+  - url: http://localhost:3001
+tags:
+  - name: Blogs
+    description: Blog Post Endpoints
+  - name: Foodposts
+    description: Food Post Endpoints
+  - name: Donations
+    description: Donation Endpoints
+  - name: Events
+    description: Events Endpoints
+paths:
+  /foodPosts:
+    get:
+      tags:
+        - Foodposts
+      summary: Retrieve all FoodPosts
+      operationId: getFoodPosts
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FoodPost'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                badRequestExample:
+                  value:
+                    code: 500
+                    message: 'Internal Server Error'
+    post:
+      tags:
+        - Foodposts
+      summary: Create a new FoodPost
+      operationId: createFoodPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodPost'
+            
+      responses:
+        '201':
+          description: FoodPost created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodPost'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                badRequestExample:
+                  value:
+                    code: 400
+                    message: 'Invalid request data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                internalServerErrorExample:
+                  value:
+                    code: 500
+                    message: 'Unexpected server error'
+  /foodPosts/{fp_id}:
+    parameters:
+      - in: path
+        name: fp_id
+        required: true
+        description: The ID of the FoodPost to retrieve, update, or delete
+        schema:
+          type: integer 
+        example: 10  
+    get:
+      tags:
+        - Foodposts
+      summary: Retrieve a FoodPost by ID
+      operationId: getFoodPostById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodPost'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                notFoundExample:
+                  value:
+                    code: 404
+                    message: 'FoodPost not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                internalServerErrorExample:
+                  value:
+                    code: 500
+                    message: 'Unexpected server error'
+    put:
+      tags:
+        - Foodposts
+      summary: Update an existing FoodPost
+      operationId: updateFoodPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodPost'
+      responses:
+        '200':
+          description: FoodPost updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodPost'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                badRequestExample:
+                  value:
+                    code: 400
+                    message: 'Invalid request data'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                notFoundExample:
+                  value:
+                    code: 404
+                    message: 'FoodPost not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                internalServerErrorExample:
+                  value:
+                    code: 500
+                    message: 'Unexpected server error'
+    delete:
+      tags:
+        - Foodposts
+      summary: Delete a FoodPost by ID
+      operationId: deleteFoodPostById
+      responses:
+        '204':
+          description: FoodPost deleted successfully
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                notFoundExample:
+                  value:
+                    code: 404
+                    message: 'FoodPost not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                internalServerErrorExample:
+                  value:
+                    code: 500
+                    message: 'Unexpected server error'
+  /foodPosts/search:
+    get:
+      tags:
+        - Foodposts
+      summary: Search food posts based on criteria
+      operationId: searchFoodPosts
+      parameters:
+        - name: keyword
+          in: query
+          description: Keyword to search in name or description
+          schema:
+            type: string
+          example: New Title
+        - name: startDate
+          in: query
+          description: Start date for filtering food posts
+          schema:
+            type: string
+            format: date
+          example: 2024-04-06
+        - name: endDate
+          in: query
+          description: End date for filtering food posts
+          schema:
+            type: string
+            format: date
+          example: 2024-04-06
+        - name: minNumOfPeople
+          in: query
+          description: Minimum number of people for filtering food posts
+          schema:
+            type: integer
+          example: 20
+        - name: maxNumOfPeople
+          in: query
+          description: Maximum number of people for filtering food posts
+          schema:
+            type: integer
+          example: 30
+        - name: minShelfLife
+          in: query
+          description: Minimum shelf life (in days) for filtering food posts
+          schema:
+            type: integer
+          example: 10
+        - name: maxShelfLife
+          in: query
+          description: Maximum shelf life (in days) for filtering food posts
+          schema:
+            type: integer
+          example: 15
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FoodPost'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                badRequestExample:
+                  value:
+                    code: 400
+                    message: 'Invalid request data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                internalServerErrorExample:
+                  value:
+                    code: 500
+                    message: 'Unexpected server error'
+                  
+  /blogposts:
+    get:
+      tags:
+        - Blogs
+      operationId: getAllBlogPosts
+      summary: Retrieve all BlogPosts
+      responses:
+        '200':
+          description: A list of all the blog posts
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogPostResponse'
+        '401':
+          description: Authorization information is missing or invalid
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No blogs exist in the system
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Blogs
+      operationId: createBlogPost
+      summary: Create a new Blog post
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/BlogPostCreate'
+      responses:
+        '201':
+          description: Blog post created successfully
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BlogPostResponse'
+        '400':
+          description: Bad request
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthenticated request
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blogposts/{keyword}:
+    get:
+      tags:
+        - Blogs
+      operationId: getBlogPostsByKeyword
+      summary: Retrieve BlogPosts by keyword
+      description: To retrieve the Blog posts based on the title or content containing the keyword
+      parameters:
+        - name: keyword
+          in: path
+          description: keyword matching with the title or content of the blog post
+          required: true
+          schema:
+            type: string
+          example: malnutrition
+      responses:
+        '200':
+          description: A list of all the blog posts whose title or content contains the keyword 
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogPostResponse'
+        '401':
+          description: Authorization information is missing or invalid
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No blogs exist in the system
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blogposts/{blog_id}:
+    get:
+      tags:
+        - Blogs
+      operationId: getBlogPostsById
+      summary: Retrieve BlogPost by ID
+      description: To retrieve the Blog post based on Id
+      parameters:
+        - name: blog_id
+          in: path
+          description: id of the blog post
+          required: true
+          schema:
+            type: integer
+          example: 10
+      responses:
+        '200':
+          description: Blog post with matching id
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BlogPostResponse'
+        '401':
+          description: Authorization information is missing or invalid
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No blogs exist in the system
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Blogs
+      operationId: updateBlogPostById
+      summary: Update BlogPost by ID
+      description: Update an existing blog post by Id
+      parameters:
+        - name: blog_id
+          in: path
+          description: Id to fetch specific blog post to update
+          required: true
+          schema:
+              type: integer
+          example: 10
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogPostUpdate'
+      responses:
+        '201':
+          description: Blog post updated successfully
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BlogPostResponse'
+        '400':
+          description: Bad request
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Blog post not found
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthenticated request
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Blogs
+      summary: Delete BlogPost by ID
+      description: Delete a specific blog post by ID
+      operationId: deleteBlogPostById
+      parameters:
+        - name: blog_id
+          in: path
+          description: Id to fetch specific blog post to delete
+          required: true
+          schema:
+            type: integer
+          example: 10
+      responses:
+        '204':
+          description: Blog post deleted successfully
+        '404':
+          description: Blog post not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /donations:
+    get:
+      tags:
+        - Donations
+      summary: Get all donations
+      responses:
+        '200':
+          description: A list of donations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Donation'
+    post:
+      tags:
+        - Donations
+      summary: Create a new donation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Donation'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+    # Error response for invalid request
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /donations/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: ID of the donation to retrieve
+        schema:
+          type: integer
+        example: 10
+    get:
+      tags:
+        - Donations
+      summary: Get a donation by ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+        '404':
+          description: Donation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    # Error response for unauthorized access
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Donations
+      summary: Delete a donation
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Donation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /events:
+    get:
+      tags:
+        - Events
+      summary: Retrieve all events
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      tags:
+        - Events
+      summary: Create a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+      responses:
+        '201':
+          description: The created event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /events/{eventId}:
+    parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: ID of the event to perform the operation on
+        schema:
+          type: integer
+        example: 20
+    get:
+      tags:
+        - Events
+      summary: Retrieve a specific event
+      responses:
+        '200':
+          description: The requested event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+    put:
+      tags:
+        - Events
+      summary: Update a specific event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventInput'
+      responses:
+        '200':
+          description: The updated event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+    delete:
+      tags:
+        - Events
+      summary: Delete a specific event
+      responses:
+        '204':
+          description: Event successfully deleted
+components:
+  schemas:
+    FoodPost:
+      type: object
+      properties:
+        fp_id:
+          type: integer
+          examples: 
+             - 1
+        name:
+          type: string
+          examples: 
+             - "Pizza"
+        numOfPeople:
+          type: integer
+          examples: 
+             - 2
+        shelfLife:
+          type: string
+          examples: 
+             - "2 days"
+        timestamp:
+          type: string
+          format: date-time
+          examples: 
+            - "2024-03-15T10:00:00Z"
+        status:
+          type: string
+          examples: 
+            - "available"
+        location:
+          type: string
+          examples:
+            - "123 Main Street, City"
+        image:
+          type: string
+          examples:
+            - "https://example.com/image.jpg"
+        email:
+          type: string
+          examples:
+            - "example@example.com"
+        description:
+          type: string
+          examples:
+            -  "Delicious pizza with toppings"
+    BlogPostUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the blog post
+          examples:
+            - "Introduction to Nutrition"
+        content:
+          type: string
+          description: Content of the blog post
+          examples:
+            - "This blog post covers the basics of nutrition and its importance in maintaining a healthy lifestyle."
+    BlogPostCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the blog post
+          examples:
+            - "Introduction to Nutrition"
+        content:
+          type: string
+          description: Content of the blog post
+          examples:
+            - "This blog post covers the basics of nutrition and its importance in maintaining a healthy lifestyle."
+      required:
+        - title
+        - content
+    BlogPostResponse:
+      type: object
+      properties:
+        blog_id:
+          type: integer
+          description: ID of the blog post
+          examples:
+            - 1
+        user_name:
+          type: integer
+          description: Name of the user who posted the blog
+          examples:
+            - "John Smith"
+        title:
+          type: string
+          description: Title of the blog post
+          examples:
+            - "Introduction to Nutrition"
+        content:
+          type: string
+          description: Content of the blog post
+          examples:
+            - "This blog post covers the basics of nutrition and its importance in maintaining a healthy lifestyle."
+        createdDate:
+          type: string
+          format: date-time
+          description: Date when blog is posted
+          examples: 
+            - "2024-03-17T10:00:00Z"
+        likes:
+          type: integer
+          description: No. of likes on the blog post
+          examples: 
+            - 10
+        dislikes:
+          type: integer
+          description: No. of dislikes on the blog post
+          examples: 
+            - 10
+    Donation:
+      type: object
+      properties:
+        donation_id:
+          type: integer
+          description: ID of the donation
+          examples: 
+          - 1
+        amount:
+          type: number
+          description: Donation amount
+          examples: 
+          - 100.50
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the donation made
+          examples: 
+          - "2024-03-19T12:30:00Z"
+      required:
+        - amount
+    Event:
+      type: object
+      properties:
+        eventId:
+          type: integer
+          description: ID of the event
+          examples: 
+          - 1
+        eventTitle:
+          type: string
+          description: Title of the event
+          examples: 
+          - "Food distribution camp"
+        desc:
+          type: string
+          description: Description of the event
+          examples: 
+          - "A camp to distribute nutritious food to the children of orphanage"
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp of the event posted
+          examples: 
+          - "2024-05-15T09:00:00Z"
+      required:
+        - eventId
+        - eventTitle
+        - timestamp
+    EventCreate:
+      type: object
+      properties:
+        eventId:
+          type: integer
+          description: ID of the event
+          examples: 
+          - 1
+        eventTitle:
+          type: string
+          description: Title of the event
+          examples: 
+          - "Donation Drive"
+        desc:
+          type: string
+          description: Description of the event
+          examples: 
+          - "Weekly Food Donation Drive"
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the event posted
+          examples: 
+          - "2024-05-15T09:00:00Z"
+      required:
+        - eventTitle
+        - timestamp
+    EventInput:
+      type: object
+      properties:
+        eventTitle:
+          type: string
+          description: Description of the event
+          examples: 
+          - "Hunger relief seminar"
+        desc:
+          type: string
+          description: Description of the event
+          examples: 
+          - "Guest speaker on food scarcity"
+      required:
+        - eventTitle
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          examples: 
+            - '200'
+        message:
+          type: string
+          examples: 
+            - 'Error message example'

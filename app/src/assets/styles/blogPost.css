@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.navigation-header{
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    display: flex;
+}
+
+.blog {
+    width: 70%;
+}
+
+.gap {
+    width: 8%;
+}
+
+.author-text {
+    text-align-last: center;
+}
+
+.blog-image {
+    position: relative;
+    border-radius: 1cm;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45vw;
+    object-fit: cover;
+}
+
+.blog-container {
+    display: flex;
+}
+
+.blogimg-container {
+    width: 100%;
+}
+
+.avatar-img {
+    margin: 8px;
+}
+.comment-icon {
+    width: 50%;
+}

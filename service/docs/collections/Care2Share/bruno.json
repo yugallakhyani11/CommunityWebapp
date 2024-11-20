@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Care2Share",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

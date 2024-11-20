@@ -1,0 +1,62 @@
+{
+    "navbar.menu.events.label" : "Eventos",
+    "navbar.menu.ngos.label" : "ONGs",
+    "navbar.menu.blogs.label" : "Blogs",
+    "navbar.menu.foodposts.label" : "Publicaciones de Comida",
+
+
+    "menu.account.label" : "Cuenta",
+    "menu.dashboard.label" : "Panel de control",
+    "menu.logout.label" : "Cerrar sesión",
+
+    "blogpost.explore.label" : "Explorar",
+    "blogpost.myblogs.label" : "Mis Blogs",
+    "blogpost.noblogs.label" : "Lo siento, no se encontraron publicaciones.",
+    "blogpost.readmore.label" : "Leer más",
+
+    "createblog.write.label" : "Escribir Blog",
+    "createblog.share.label" : "Compartir",
+
+    "blogpost.heading.label": "Historias y Noticias!",
+    "blogpost.subheading.label": "Busca títulos de blogs específicos, contenidos.",
+    "blogpost.keyword.search.label": "Buscar por palabra clave",
+    "blogpost.malnutrition.label": "Desnutrición",
+    "blogpost.food.label": "Comida",
+
+    "createblogform.heading.label": "Comienza a escribir",
+    "createblogform.edit.label": "Editar blog",
+    "createblogform.imgMsg.label": "Ningún archivo seleccionado",
+    "createblogform.imgBtn.label": "Elegir archivo",
+    "createblogform.title.label": "Título",
+    "createblogform.content.label": "Contenido",
+    "createblogform.cancel.label": "Cancelar",
+    "createblogform.submit.label": "Enviar",
+
+    "foodpostspage.heading": "Comparte el excedente, Difunde sonrisas.",
+
+    "foodpostcard.feeding": "Alimenta a:",
+    "foodpostcard.people": "Personas",
+    "foodpostcard.shelfLife": "Vida útil:",
+    "foodpostcard.days": "días",
+    "foodpostcard.location": "Ubicación:",
+    "foodpostcard.postedOn": "Publicado el:",
+
+    "foodpostcard.email": "Correo electrónico",
+    "foodpostcard.description": "Descripción",
+    "foodpostcard.status": "Estado",
+    "foodpostcard.available": "Disponible",
+    "foodpostcard.notAvailable": "No disponible",
+
+    "searchBar.search": "Buscar",
+    "searchBar.clear": "Limpiar",
+
+    "formButtons": {
+        "save": "Guardar",
+        "cancel": "Cancelar"
+      },
+
+      "createNewFoodPost": "Crear nueva publicación de alimentos",
+
+      "editFoodPost": "Editar publicación de alimentos"
+
+}

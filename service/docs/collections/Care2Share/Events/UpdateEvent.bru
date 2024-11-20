@@ -1,0 +1,35 @@
+meta {
+  name: UpdateEvent
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3000/event/6623c9f643b02f8685d0351a
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "_id": "6623c9f643b02f8685d0351a",
+      "title": "CreatedEventtitle1",
+      "description": "Description",
+      "keywords": [
+        "keyword1",
+        "keyword2",
+        "keyword3"
+      ],
+      "date": "2024-04-20T00:00:00.000Z",
+      "location": "boston",
+      "createdBy": "661aba23def33f4e03648249",
+      "volunteers": [],
+      "donations": [],
+      "currentDonation": 0,
+      "targetDonation": 1000,
+      "currentVolunteers": 0,
+      "targetVolunteers": 10,
+      "imageUrl": "https://plus.unsplash.com/premium_photo-1683121611041-b2a4cee2dad4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "__v": 0
+    }
+}

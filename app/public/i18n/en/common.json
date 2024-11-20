@@ -1,0 +1,66 @@
+{
+    "navbar.menu.events.label" : "Events",
+    "navbar.menu.ngos.label" : "NGOs",
+    "navbar.menu.blogs.label" : "Blogs",
+    "navbar.menu.foodposts.label" : "Food Posts",
+
+    "menu.account.label" : "Account",
+    "menu.dashboard.label" : "Dashboard",
+    "menu.logout.label" : "Logout",
+
+
+    "blogpost.explore.label" : "Explore",
+    "blogpost.myblogs.label" : "My Blogs",
+    "blogpost.noblogs.label" : "Sorry, no posts found.",
+    "blogpost.readmore.label" : "Read More",
+
+    "createblog.write.label" : "Write Blog",
+    "createblog.share.label" : "Share",
+
+    "blogpost.heading.label": "Stories and News!",
+    "blogpost.subheading.label": "Search for specific blog titles, contents.",
+    "blogpost.keyword.search.label": "Search by keyword",
+    "blogpost.malnutrition.label": "Malnutrition",
+    "blogpost.food.label": "Food",
+
+    "createblogform.heading.label": "Start Writing",
+    "createblogform.edit.label": "Edit Blog",
+    "createblogform.imgMsg.label": "No file Chosen",
+    "createblogform.imgBtn.label": "Choose File",
+    "createblogform.title.label": "Title",
+    "createblogform.content.label": "Content",
+    "createblogform.cancel.label": "Cancel",
+    "createblogform.submit.label": "Submit",
+    
+
+    "foodpostspage.heading": "Share the surplus, Spread smiles.",
+
+    "foodpostcard.feeding": "Feeds:",
+    "foodpostcard.people": "People",
+    "foodpostcard.shelfLife": "Shelf Life:",
+    "foodpostcard.days": "days",
+    "foodpostcard.location": "Location:",
+    "foodpostcard.postedOn": "Posted on:",
+
+    "foodpostcard.email": "Email",
+    "foodpostcard.description": "Description",
+    "foodpostcard.status": "Status",
+    "foodpostcard.available": "Available",
+    "foodpostcard.notAvailable": "Not Available",
+
+    "searchBar.search": "Search",
+    "searchBar.clear": "Clear",
+
+    "formButtons": {
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+
+      "createNewFoodPost": "Create New Food Post",
+
+      "editFoodPost": "Edit Food Post"
+
+
+
+
+}
