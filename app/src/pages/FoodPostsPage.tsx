@@ -60,7 +60,7 @@ const FoodPostsPage: React.FC<FoodPostsPageProps> = () => {
 
 // Function to get location coordinates using Google Maps API
   const getLocationCoordinates = async (location: string) => {
-    const apiKey = 'AIzaSyDr9XJocHD_zMbbXQJdghMxk50g9N-nvKk';
+    const apiKey = '';
     const encodedLocation = encodeURIComponent(location);
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedLocation}&key=${apiKey}`;
 
